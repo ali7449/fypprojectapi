@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ec14dc8bc3bc48ae8e7bdb9deee0e2d0" Name="Diagram1">
+        <EntityTypeShape EntityType="RENT_A_DRESSModel.DRESSIMAGE" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="RENT_A_DRESSModel.DRESSINFO" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RENT_A_DRESSModel.OWNERFAVORITE" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="RENT_A_DRESSModel.RENT" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RENT_A_DRESSModel.USERINFO" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RENT_A_DRESSModel.WHISHLIST" Width="1.5" PointX="8.25" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="RENT_A_DRESSModel.FK__DRESSIMAG__dress__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="RENT_A_DRESSModel.FK__DRESSINFO__uid__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="RENT_A_DRESSModel.FK__OWNERFAVO__dress__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="RENT_A_DRESSModel.FK__RENT__dressid__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="RENT_A_DRESSModel.FK__WHISHLIST__dress__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="RENT_A_DRESSModel.FK__OWNERFAVO__useri__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="RENT_A_DRESSModel.FK__RENT__renterid__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="RENT_A_DRESSModel.FK__WHISHLIST__reque__47DBAE45" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

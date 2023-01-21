@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RENT_A_DRESSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DRESSIMAGE">
+          <Key>
+            <PropertyRef Name="imageid" />
+          </Key>
+          <Property Name="imageid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dressid" Type="int" />
+          <Property Name="dressimage" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="DRESSINFO">
+          <Key>
+            <PropertyRef Name="did" />
+          </Key>
+          <Property Name="uid" Type="int" />
+          <Property Name="did" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="cost" Type="int" />
+          <Property Name="size" Type="varchar" MaxLength="50" />
+          <Property Name="color" Type="varchar" MaxLength="50" />
+          <Property Name="descriptin" Type="varchar(max)" />
+          <Property Name="geneder" Type="varchar" MaxLength="50" />
+          <Property Name="quality" Type="varchar" MaxLength="50" />
+          <Property Name="rating" Type="float" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OWNERFAVORITE">
+          <Key>
+            <PropertyRef Name="fav_id" />
+          </Key>
+          <Property Name="fav_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" />
+          <Property Name="dressid" Type="int" />
+        </EntityType>
+        <EntityType Name="RENT">
+          <Key>
+            <PropertyRef Name="rentid" />
+          </Key>
+          <Property Name="rentid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="renterid" Type="int" />
+          <Property Name="dressid" Type="int" />
+          <Property Name="rent_start_date" Type="varchar" MaxLength="50" />
+          <Property Name="rent_end_date" Type="varchar" MaxLength="50" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="requeststatus" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="USERINFO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="contact" Type="varchar" MaxLength="50" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="address" Type="varchar" MaxLength="100" />
+          <Property Name="gender" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WHISHLIST">
+          <Key>
+            <PropertyRef Name="wislist_id" />
+          </Key>
+          <Property Name="wislist_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="requesterid" Type="int" />
+          <Property Name="dressid" Type="int" />
+          <Property Name="dress_status" Type="varchar" MaxLength="50" />
+          <Property Name="availabilty_date" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__DRESSIMAG__dress__44FF419A">
+          <End Role="DRESSINFO" Type="Self.DRESSINFO" Multiplicity="0..1" />
+          <End Role="DRESSIMAGE" Type="Self.DRESSIMAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DRESSINFO">
+              <PropertyRef Name="did" />
+            </Principal>
+            <Dependent Role="DRESSIMAGE">
+              <PropertyRef Name="dressid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DRESSINFO__uid__3A81B327">
+          <End Role="USERINFO" Type="Self.USERINFO" Multiplicity="0..1" />
+          <End Role="DRESSINFO" Type="Self.DRESSINFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERINFO">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DRESSINFO">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OWNERFAVO__dress__4CA06362">
+          <End Role="DRESSINFO" Type="Self.DRESSINFO" Multiplicity="0..1" />
+          <End Role="OWNERFAVORITE" Type="Self.OWNERFAVORITE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DRESSINFO">
+              <PropertyRef Name="did" />
+            </Principal>
+            <Dependent Role="OWNERFAVORITE">
+              <PropertyRef Name="dressid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OWNERFAVO__useri__4BAC3F29">
+          <End Role="USERINFO" Type="Self.USERINFO" Multiplicity="0..1" />
+          <End Role="OWNERFAVORITE" Type="Self.OWNERFAVORITE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERINFO">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OWNERFAVORITE">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RENT__dressid__4222D4EF">
+          <End Role="DRESSINFO" Type="Self.DRESSINFO" Multiplicity="0..1" />
+          <End Role="RENT" Type="Self.RENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DRESSINFO">
+              <PropertyRef Name="did" />
+            </Principal>
+            <Dependent Role="RENT">
+              <PropertyRef Name="dressid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RENT__renterid__412EB0B6">
+          <End Role="USERINFO" Type="Self.USERINFO" Multiplicity="0..1" />
+          <End Role="RENT" Type="Self.RENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERINFO">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RENT">
+              <PropertyRef Name="renterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WHISHLIST__dress__48CFD27E">
+          <End Role="DRESSINFO" Type="Self.DRESSINFO" Multiplicity="0..1" />
+          <End Role="WHISHLIST" Type="Self.WHISHLIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DRESSINFO">
+              <PropertyRef Name="did" />
+            </Principal>
+            <Dependent Role="WHISHLIST">
+              <PropertyRef Name="dressid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WHISHLIST__reque__47DBAE45">
+          <End Role="USERINFO" Type="Self.USERINFO" Multiplicity="0..1" />
+          <End Role="WHISHLIST" Type="Self.WHISHLIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERINFO">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="WHISHLIST">
+              <PropertyRef Name="requesterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RENT_A_DRESSModelStoreContainer">
+          <EntitySet Name="DRESSIMAGE" EntityType="Self.DRESSIMAGE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DRESSINFO" EntityType="Self.DRESSINFO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OWNERFAVORITE" EntityType="Self.OWNERFAVORITE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RENT" EntityType="Self.RENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USERINFO" EntityType="Self.USERINFO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WHISHLIST" EntityType="Self.WHISHLIST" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DRESSIMAG__dress__44FF419A" Association="Self.FK__DRESSIMAG__dress__44FF419A">
+            <End Role="DRESSINFO" EntitySet="DRESSINFO" />
+            <End Role="DRESSIMAGE" EntitySet="DRESSIMAGE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DRESSINFO__uid__3A81B327" Association="Self.FK__DRESSINFO__uid__3A81B327">
+            <End Role="USERINFO" EntitySet="USERINFO" />
+            <End Role="DRESSINFO" EntitySet="DRESSINFO" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OWNERFAVO__dress__4CA06362" Association="Self.FK__OWNERFAVO__dress__4CA06362">
+            <End Role="DRESSINFO" EntitySet="DRESSINFO" />
+            <End Role="OWNERFAVORITE" EntitySet="OWNERFAVORITE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OWNERFAVO__useri__4BAC3F29" Association="Self.FK__OWNERFAVO__useri__4BAC3F29">
+            <End Role="USERINFO" EntitySet="USERINFO" />
+            <End Role="OWNERFAVORITE" EntitySet="OWNERFAVORITE" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RENT__dressid__4222D4EF" Association="Self.FK__RENT__dressid__4222D4EF">
+            <End Role="DRESSINFO" EntitySet="DRESSINFO" />
+            <End Role="RENT" EntitySet="RENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RENT__renterid__412EB0B6" Association="Self.FK__RENT__renterid__412EB0B6">
+            <End Role="USERINFO" EntitySet="USERINFO" />
+            <End Role="RENT" EntitySet="RENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WHISHLIST__dress__48CFD27E" Association="Self.FK__WHISHLIST__dress__48CFD27E">
+            <End Role="DRESSINFO" EntitySet="DRESSINFO" />
+            <End Role="WHISHLIST" EntitySet="WHISHLIST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WHISHLIST__reque__47DBAE45" Association="Self.FK__WHISHLIST__reque__47DBAE45">
+            <End Role="USERINFO" EntitySet="USERINFO" />
+            <End Role="WHISHLIST" EntitySet="WHISHLIST" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RENT_A_DRESSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DRESSIMAGE">
+          <Key>
+            <PropertyRef Name="imageid" />
+          </Key>
+          <Property Name="imageid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dressid" Type="Int32" />
+          <Property Name="dressimage1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DRESSINFO" Relationship="Self.FK__DRESSIMAG__dress__44FF419A" FromRole="DRESSIMAGE" ToRole="DRESSINFO" />
+        </EntityType>
+        <EntityType Name="DRESSINFO">
+          <Key>
+            <PropertyRef Name="did" />
+          </Key>
+          <Property Name="uid" Type="Int32" />
+          <Property Name="did" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cost" Type="Int32" />
+          <Property Name="size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descriptin" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="geneder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="quality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rating" Type="Double" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DRESSIMAGEs" Relationship="Self.FK__DRESSIMAG__dress__44FF419A" FromRole="DRESSINFO" ToRole="DRESSIMAGE" />
+          <NavigationProperty Name="USERINFO" Relationship="Self.FK__DRESSINFO__uid__3A81B327" FromRole="DRESSINFO" ToRole="USERINFO" />
+          <NavigationProperty Name="OWNERFAVORITEs" Relationship="Self.FK__OWNERFAVO__dress__4CA06362" FromRole="DRESSINFO" ToRole="OWNERFAVORITE" />
+          <NavigationProperty Name="RENTs" Relationship="Self.FK__RENT__dressid__4222D4EF" FromRole="DRESSINFO" ToRole="RENT" />
+          <NavigationProperty Name="WHISHLISTs" Relationship="Self.FK__WHISHLIST__dress__48CFD27E" FromRole="DRESSINFO" ToRole="WHISHLIST" />
+        </EntityType>
+        <EntityType Name="OWNERFAVORITE">
+          <Key>
+            <PropertyRef Name="fav_id" />
+          </Key>
+          <Property Name="fav_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="dressid" Type="Int32" />
+          <NavigationProperty Name="DRESSINFO" Relationship="Self.FK__OWNERFAVO__dress__4CA06362" FromRole="OWNERFAVORITE" ToRole="DRESSINFO" />
+          <NavigationProperty Name="USERINFO" Relationship="Self.FK__OWNERFAVO__useri__4BAC3F29" FromRole="OWNERFAVORITE" ToRole="USERINFO" />
+        </EntityType>
+        <EntityType Name="RENT">
+          <Key>
+            <PropertyRef Name="rentid" />
+          </Key>
+          <Property Name="rentid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="renterid" Type="Int32" />
+          <Property Name="dressid" Type="Int32" />
+          <Property Name="rent_start_date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="rent_end_date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="requeststatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DRESSINFO" Relationship="Self.FK__RENT__dressid__4222D4EF" FromRole="RENT" ToRole="DRESSINFO" />
+          <NavigationProperty Name="USERINFO" Relationship="Self.FK__RENT__renterid__412EB0B6" FromRole="RENT" ToRole="USERINFO" />
+        </EntityType>
+        <EntityType Name="USERINFO">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="contact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DRESSINFOes" Relationship="Self.FK__DRESSINFO__uid__3A81B327" FromRole="USERINFO" ToRole="DRESSINFO" />
+          <NavigationProperty Name="OWNERFAVORITEs" Relationship="Self.FK__OWNERFAVO__useri__4BAC3F29" FromRole="USERINFO" ToRole="OWNERFAVORITE" />
+          <NavigationProperty Name="RENTs" Relationship="Self.FK__RENT__renterid__412EB0B6" FromRole="USERINFO" ToRole="RENT" />
+          <NavigationProperty Name="WHISHLISTs" Relationship="Self.FK__WHISHLIST__reque__47DBAE45" FromRole="USERINFO" ToRole="WHISHLIST" />
+        </EntityType>
+        <EntityType Name="WHISHLIST">
+          <Key>
+            <PropertyRef Name="wislist_id" />
+          </Key>
+          <Property Name="wislist_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="requesterid" Type="Int32" />
+          <Property Name="dressid" Type="Int32" />
+          <Property Name="dress_status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="availabilty_date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DRESSINFO" Relationship="Self.FK__WHISHLIST__dress__48CFD27E" FromRole="WHISHLIST" ToRole="DRESSINFO" />
+          <NavigationProperty Name="USERINFO" Relationship="Self.FK__WHISHLIST__reque__47DBAE45" FromRole="WHISHLIST" ToRole="USERINFO" />
+        </EntityType>
+        <Association Name="FK__DRESSIMAG__dress__44FF419A">
+          <End Role="DRESSINFO" Type="Self.DRESSINFO" Multiplicity="0..1" />
+          <End Role="DRESSIMAGE" Type="Self.DRESSIMAGE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DRESSINFO">
+              <PropertyRef Name="did" />
+            </Principal>
+            <Dependent Role="DRESSIMAGE">
+              <PropertyRef Name="dressid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DRESSINFO__uid__3A81B327">
+          <End Role="USERINFO" Type="Self.USERINFO" Multiplicity="0..1" />
+          <End Role="DRESSINFO" Type="Self.DRESSINFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERINFO">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="DRESSINFO">
+              <PropertyRef Name="uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OWNERFAVO__dress__4CA06362">
+          <End Role="DRESSINFO" Type="Self.DRESSINFO" Multiplicity="0..1" />
+          <End Role="OWNERFAVORITE" Type="Self.OWNERFAVORITE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DRESSINFO">
+              <PropertyRef Name="did" />
+            </Principal>
+            <Dependent Role="OWNERFAVORITE">
+              <PropertyRef Name="dressid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RENT__dressid__4222D4EF">
+          <End Role="DRESSINFO" Type="Self.DRESSINFO" Multiplicity="0..1" />
+          <End Role="RENT" Type="Self.RENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DRESSINFO">
+              <PropertyRef Name="did" />
+            </Principal>
+            <Dependent Role="RENT">
+              <PropertyRef Name="dressid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WHISHLIST__dress__48CFD27E">
+          <End Role="DRESSINFO" Type="Self.DRESSINFO" Multiplicity="0..1" />
+          <End Role="WHISHLIST" Type="Self.WHISHLIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DRESSINFO">
+              <PropertyRef Name="did" />
+            </Principal>
+            <Dependent Role="WHISHLIST">
+              <PropertyRef Name="dressid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OWNERFAVO__useri__4BAC3F29">
+          <End Role="USERINFO" Type="Self.USERINFO" Multiplicity="0..1" />
+          <End Role="OWNERFAVORITE" Type="Self.OWNERFAVORITE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERINFO">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OWNERFAVORITE">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__RENT__renterid__412EB0B6">
+          <End Role="USERINFO" Type="Self.USERINFO" Multiplicity="0..1" />
+          <End Role="RENT" Type="Self.RENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERINFO">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="RENT">
+              <PropertyRef Name="renterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WHISHLIST__reque__47DBAE45">
+          <End Role="USERINFO" Type="Self.USERINFO" Multiplicity="0..1" />
+          <End Role="WHISHLIST" Type="Self.WHISHLIST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USERINFO">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="WHISHLIST">
+              <PropertyRef Name="requesterid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RENT_A_DRESSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DRESSIMAGEs" EntityType="Self.DRESSIMAGE" />
+          <EntitySet Name="DRESSINFOes" EntityType="Self.DRESSINFO" />
+          <EntitySet Name="OWNERFAVORITEs" EntityType="Self.OWNERFAVORITE" />
+          <EntitySet Name="RENTs" EntityType="Self.RENT" />
+          <EntitySet Name="USERINFOes" EntityType="Self.USERINFO" />
+          <EntitySet Name="WHISHLISTs" EntityType="Self.WHISHLIST" />
+          <AssociationSet Name="FK__DRESSIMAG__dress__44FF419A" Association="Self.FK__DRESSIMAG__dress__44FF419A">
+            <End Role="DRESSINFO" EntitySet="DRESSINFOes" />
+            <End Role="DRESSIMAGE" EntitySet="DRESSIMAGEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DRESSINFO__uid__3A81B327" Association="Self.FK__DRESSINFO__uid__3A81B327">
+            <End Role="USERINFO" EntitySet="USERINFOes" />
+            <End Role="DRESSINFO" EntitySet="DRESSINFOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OWNERFAVO__dress__4CA06362" Association="Self.FK__OWNERFAVO__dress__4CA06362">
+            <End Role="DRESSINFO" EntitySet="DRESSINFOes" />
+            <End Role="OWNERFAVORITE" EntitySet="OWNERFAVORITEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RENT__dressid__4222D4EF" Association="Self.FK__RENT__dressid__4222D4EF">
+            <End Role="DRESSINFO" EntitySet="DRESSINFOes" />
+            <End Role="RENT" EntitySet="RENTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WHISHLIST__dress__48CFD27E" Association="Self.FK__WHISHLIST__dress__48CFD27E">
+            <End Role="DRESSINFO" EntitySet="DRESSINFOes" />
+            <End Role="WHISHLIST" EntitySet="WHISHLISTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OWNERFAVO__useri__4BAC3F29" Association="Self.FK__OWNERFAVO__useri__4BAC3F29">
+            <End Role="USERINFO" EntitySet="USERINFOes" />
+            <End Role="OWNERFAVORITE" EntitySet="OWNERFAVORITEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__RENT__renterid__412EB0B6" Association="Self.FK__RENT__renterid__412EB0B6">
+            <End Role="USERINFO" EntitySet="USERINFOes" />
+            <End Role="RENT" EntitySet="RENTs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WHISHLIST__reque__47DBAE45" Association="Self.FK__WHISHLIST__reque__47DBAE45">
+            <End Role="USERINFO" EntitySet="USERINFOes" />
+            <End Role="WHISHLIST" EntitySet="WHISHLISTs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RENT_A_DRESSModelStoreContainer" CdmEntityContainer="RENT_A_DRESSEntities">
+          <EntitySetMapping Name="DRESSIMAGEs">
+            <EntityTypeMapping TypeName="RENT_A_DRESSModel.DRESSIMAGE">
+              <MappingFragment StoreEntitySet="DRESSIMAGE">
+                <ScalarProperty Name="imageid" ColumnName="imageid" />
+                <ScalarProperty Name="dressid" ColumnName="dressid" />
+                <ScalarProperty Name="dressimage1" ColumnName="dressimage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DRESSINFOes">
+            <EntityTypeMapping TypeName="RENT_A_DRESSModel.DRESSINFO">
+              <MappingFragment StoreEntitySet="DRESSINFO">
+                <ScalarProperty Name="uid" ColumnName="uid" />
+                <ScalarProperty Name="did" ColumnName="did" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="descriptin" ColumnName="descriptin" />
+                <ScalarProperty Name="geneder" ColumnName="geneder" />
+                <ScalarProperty Name="quality" ColumnName="quality" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OWNERFAVORITEs">
+            <EntityTypeMapping TypeName="RENT_A_DRESSModel.OWNERFAVORITE">
+              <MappingFragment StoreEntitySet="OWNERFAVORITE">
+                <ScalarProperty Name="fav_id" ColumnName="fav_id" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="dressid" ColumnName="dressid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RENTs">
+            <EntityTypeMapping TypeName="RENT_A_DRESSModel.RENT">
+              <MappingFragment StoreEntitySet="RENT">
+                <ScalarProperty Name="rentid" ColumnName="rentid" />
+                <ScalarProperty Name="renterid" ColumnName="renterid" />
+                <ScalarProperty Name="dressid" ColumnName="dressid" />
+                <ScalarProperty Name="rent_start_date" ColumnName="rent_start_date" />
+                <ScalarProperty Name="rent_end_date" ColumnName="rent_end_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="requeststatus" ColumnName="requeststatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USERINFOes">
+            <EntityTypeMapping TypeName="RENT_A_DRESSModel.USERINFO">
+              <MappingFragment StoreEntitySet="USERINFO">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WHISHLISTs">
+            <EntityTypeMapping TypeName="RENT_A_DRESSModel.WHISHLIST">
+              <MappingFragment StoreEntitySet="WHISHLIST">
+                <ScalarProperty Name="wislist_id" ColumnName="wislist_id" />
+                <ScalarProperty Name="requesterid" ColumnName="requesterid" />
+                <ScalarProperty Name="dressid" ColumnName="dressid" />
+                <ScalarProperty Name="dress_status" ColumnName="dress_status" />
+                <ScalarProperty Name="availabilty_date" ColumnName="availabilty_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
